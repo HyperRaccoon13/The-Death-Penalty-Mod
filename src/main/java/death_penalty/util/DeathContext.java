@@ -28,8 +28,7 @@ public final class DeathContext {
 	public final String sourceTypeId;
 	public final String projectileItemId;
 
-	private DeathContext(String causeId, String dimensionId,
-						 String attackerTypeId, String sourceTypeId, String projectileItemId) {
+	private DeathContext(String causeId, String dimensionId, String attackerTypeId, String sourceTypeId, String projectileItemId) {
 		this.causeId = causeId;
 		this.dimensionId = dimensionId;
 		this.attackerTypeId = attackerTypeId;
@@ -41,7 +40,7 @@ public final class DeathContext {
 		DamageSource src = oldPlayer.getRecentDamageSource();
 		String cause = (src != null ? src.getName() : "unknown");
 
-		RegistryKey<World> key = newPlayer.getWorld().getRegistryKey();
+		RegistryKey<World> key = oldPlayer.getWorld().getRegistryKey();
 		String dim = key.getValue().toString();
 
 		Entity attacker = (src != null) ? src.getAttacker() : null;

@@ -3,13 +3,13 @@
 	"id": "death_penalty",
 	"version": "${version}",
 	"name": "The Death Penalty",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "A simple, configurable mod that lets modpack authors control what happens to players on respawn after death.",
 	"authors": [
-		"Me!"
+		"TheOverlyCaffeinatedTrashPanda"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "",
+		"sources": "https://github.com/HyperRaccoon13/The-Death-Penalty-Mod"
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/death_penalty/icon.png",
