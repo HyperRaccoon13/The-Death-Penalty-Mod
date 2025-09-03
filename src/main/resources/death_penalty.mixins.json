@@ -1,0 +1,15 @@
+{
+	"required": true,
+	"package": "death_penalty.mixin",
+	"compatibilityLevel": "JAVA_17",
+	"mixins": [
+		"accessor.PersistentProjectileEntityInvoker",
+		"accessor.ThrownItemEntityInvoker"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	}
+}

@@ -1,0 +1,7 @@
+{
+  "command.death_penalty.reload": "Config reloaded.",
+  "text.death_penalty.applied_rule": "Applied rule: %s",
+  "text.death_penalty.applied_default": "Applied: defaultPenalties",
+  "text.death_penalty.debug": "Cause = %s | Attacker = %s | Source = %s | Flags [proj = %s, fire = %s, magic = %s, expl = %s] | UsingItem = %s"
+
+}
