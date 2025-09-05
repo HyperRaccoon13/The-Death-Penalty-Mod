@@ -61,17 +61,40 @@ public final class ConfigManager {
 
 	public static DeathConfig get() { return CURRENT; }
 
-	private static class PenaltyAdapter implements JsonDeserializer<Penalty> {
-		@Override public Penalty deserialize(JsonElement jsonElement, Type t, JsonDeserializationContext c) throws JsonParseException {
-			JsonObject object = jsonElement.getAsJsonObject();
+	private static final class PenaltyAdapter implements JsonSerializer<Penalty>, JsonDeserializer<Penalty> {
+		@Override
+		public JsonElement serialize(Penalty src, Type typeOfSrc, JsonSerializationContext ctx) {
+			String type = penaltyType(src);
+			JsonObject object = ctx.serialize(src, src.getClass()).getAsJsonObject();
+			object.addProperty("type", type);
+			return object;
+		}
+
+		@Override
+		public Penalty deserialize(JsonElement element, Type typeOfT, JsonDeserializationContext c) throws JsonParseException {
+			if (!element.isJsonObject())
+				throw new JsonParseException("Penalty must be a JSON object, got: " + element);
+
+			JsonObject object = element.getAsJsonObject();
+			if (!object.has("type") || object.get("type").isJsonNull())
+				throw new JsonParseException("Penalty object missing required 'type': " + object);
+
 			String type = object.getAsJsonPrimitive("type").getAsString();
 			switch (type) {
-				case "set_food":   return c.deserialize(object, SetFoodPenalty.class);
+				case "set_food": return c.deserialize(object, SetFoodPenalty.class);
 				case "set_health": return c.deserialize(object, SetHealthPenalty.class);
 				case "add_effect": return c.deserialize(object, AddEffectPenalty.class);
 				case "xp_percent": return c.deserialize(object, XpPercentPenalty.class);
 				default: throw new JsonParseException("Unknown penalty type: " + type);
 			}
+		}
+
+		private static String penaltyType(Penalty penalty) {
+			if (penalty instanceof SetFoodPenalty) return "set_food";
+			if (penalty instanceof SetHealthPenalty) return "set_health";
+			if (penalty instanceof AddEffectPenalty) return "add_effect";
+			if (penalty instanceof XpPercentPenalty) return "xp_percent";
+			throw new IllegalStateException("Unknown Penalty subtype: " + penalty.getClass());
 		}
 	}
 }
