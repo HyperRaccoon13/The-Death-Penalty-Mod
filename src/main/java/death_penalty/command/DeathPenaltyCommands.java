@@ -5,7 +5,6 @@ import death_penalty.config.ConfigManager;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 
 public final class DeathPenaltyCommands {
@@ -15,8 +14,8 @@ public final class DeathPenaltyCommands {
 		CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> register(dispatcher));
 	}
 
-	private static void register(CommandDispatcher<ServerCommandSource> d) {
-		d.register(CommandManager.literal("deathpenalty")
+	private static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
+		dispatcher.register(CommandManager.literal("deathpenalty")
 				.requires(src -> src.hasPermissionLevel(2))
 				.then(CommandManager.literal("reload").executes(ctx -> {
 					ConfigManager.load();
@@ -25,7 +24,7 @@ public final class DeathPenaltyCommands {
 				}))
 		);
 
-		d.register(CommandManager.literal("dpreload")
+		dispatcher.register(CommandManager.literal("dpreload")
 				.requires(src -> src.hasPermissionLevel(2))
 				.executes(ctx -> {
 					ConfigManager.load();

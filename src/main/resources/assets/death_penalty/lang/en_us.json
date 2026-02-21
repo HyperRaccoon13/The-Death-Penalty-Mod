@@ -2,6 +2,6 @@
   "command.death_penalty.reload": "Config reloaded.",
   "text.death_penalty.applied_rule": "Applied rule: %s",
   "text.death_penalty.applied_default": "Applied: defaultPenalties",
+  "text.death_penalty.penalty_error": "DeathPenalty: error applying rule '%s' penalty '%s' (see server log).",
   "text.death_penalty.debug": "Cause = %s | Attacker = %s | Source = %s | Flags [proj = %s, fire = %s, magic = %s, expl = %s] | UsingItem = %s"
-
 }

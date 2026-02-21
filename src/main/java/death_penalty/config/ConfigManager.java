@@ -23,13 +23,6 @@ public final class ConfigManager {
 
 	private static final Gson GSON = new GsonBuilder()
 			.registerTypeAdapter(Penalty.class, new PenaltyAdapter())
-			.addSerializationExclusionStrategy(new ExclusionStrategy() {
-				@Override public boolean shouldSkipField(FieldAttributes field) {
-					return field.getDeclaringClass() == DeathConfig.Global.class
-							&& field.getName().equals("dev");
-				}
-				@Override public boolean shouldSkipClass(Class<?> c) { return false; }
-			})
 			.setPrettyPrinting()
 			.create();
 
@@ -45,6 +38,7 @@ public final class ConfigManager {
 				CURRENT = GSON.fromJson(reader, DeathConfig.class);
 			}
 			if (CURRENT == null) CURRENT = DeathConfig.defaultConfig();
+			ConfigValidator.validateInPlace(CURRENT);
 		} catch (IOException error) {
 			error.printStackTrace();
 			CURRENT = DeathConfig.defaultConfig();
@@ -52,6 +46,9 @@ public final class ConfigManager {
 	}
 
 	public static void save() {
+		try {
+			Files.createDirectories(PATH.getParent());
+		} catch (IOException ignored) {}
 		try (Writer writer = Files.newBufferedWriter(PATH, StandardCharsets.UTF_8)) {
 			GSON.toJson(CURRENT, writer);
 		} catch (IOException e) {
@@ -81,7 +78,7 @@ public final class ConfigManager {
 
 			String type = object.getAsJsonPrimitive("type").getAsString();
 			switch (type) {
-				case "set_food": return c.deserialize(object, SetFoodPenalty.class);
+				case "set_food"  : return c.deserialize(object, SetFoodPenalty.class);
 				case "set_health": return c.deserialize(object, SetHealthPenalty.class);
 				case "add_effect": return c.deserialize(object, AddEffectPenalty.class);
 				case "xp_percent": return c.deserialize(object, XpPercentPenalty.class);
@@ -90,7 +87,7 @@ public final class ConfigManager {
 		}
 
 		private static String penaltyType(Penalty penalty) {
-			if (penalty instanceof SetFoodPenalty) return "set_food";
+			if (penalty instanceof SetFoodPenalty)   return "set_food";
 			if (penalty instanceof SetHealthPenalty) return "set_health";
 			if (penalty instanceof AddEffectPenalty) return "add_effect";
 			if (penalty instanceof XpPercentPenalty) return "xp_percent";

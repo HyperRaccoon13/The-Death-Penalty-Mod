@@ -14,8 +14,11 @@ public class XpPercentPenalty implements Penalty {
 		int total = playerEntity.totalExperience;
 		int remove = Math.round(total * clamp);
 		int keep = Math.max(0, total - remove);
-		playerEntity.addExperienceLevels(-playerEntity.experienceLevel);
-		playerEntity.addExperience(-playerEntity.totalExperience);
-		playerEntity.addExperience(keep);
+		playerEntity.experienceLevel = 0;
+		playerEntity.experienceProgress = 0.0f;
+		playerEntity.totalExperience = 0;
+		if (keep > 0) {
+			playerEntity.addExperience(keep);
+		}
 	}
 }

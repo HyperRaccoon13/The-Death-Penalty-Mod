@@ -74,6 +74,4 @@ public class DamageDescribe {
 		return base;
 	}
 
-	public static String b(boolean v) { return v ? "1" : "0"; }
-	public static String safe(String s) { return s == null ? "null" : s; }
 }

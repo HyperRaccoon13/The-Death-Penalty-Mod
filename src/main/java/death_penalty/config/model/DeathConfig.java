@@ -11,10 +11,31 @@ public class DeathConfig {
 	public List<Rule> rules = new ArrayList<>();
 	public List<Penalty> defaultPenalties = new ArrayList<>();
 
+	public enum MatchMode {
+		FIRST,
+		ALL;
+		public static boolean isValid(String raw) {
+			if (raw == null) return false;
+			for (MatchMode m : values()) {
+				if (m.name().equalsIgnoreCase(raw)) return true;
+			}
+			return false;
+		}
+
+		public static MatchMode from(String raw, MatchMode def) {
+			if (raw == null) return def;
+			for (MatchMode m : values()) {
+				if (m.name().equalsIgnoreCase(raw)) return m;
+			}
+			return def;
+		}
+	}
+
 	public static class Global {
 		public boolean enabled = true;
 		public boolean onlyWithKeepInventory = true;
 		public boolean dev = false;
+		public String matchMode = MatchMode.FIRST.name();
 	}
 
 	public static DeathConfig defaultConfig() {
