@@ -4,10 +4,7 @@ import com.google.gson.*;
 import death_penalty.TheDeathPenalty;
 import death_penalty.config.model.DeathConfig;
 import death_penalty.config.model.Penalty;
-import death_penalty.config.model.penalties.AddEffectPenalty;
-import death_penalty.config.model.penalties.SetFoodPenalty;
-import death_penalty.config.model.penalties.SetHealthPenalty;
-import death_penalty.config.model.penalties.XpPercentPenalty;
+import death_penalty.config.model.penalties.*;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -82,6 +79,7 @@ public final class ConfigManager {
 				case "set_health": return c.deserialize(object, SetHealthPenalty.class);
 				case "add_effect": return c.deserialize(object, AddEffectPenalty.class);
 				case "xp_percent": return c.deserialize(object, XpPercentPenalty.class);
+				case "item_drop": return c.deserialize(object, ItemDropPenalty.class);
 				default: throw new JsonParseException("Unknown penalty type: " + type);
 			}
 		}
@@ -91,6 +89,7 @@ public final class ConfigManager {
 			if (penalty instanceof SetHealthPenalty) return "set_health";
 			if (penalty instanceof AddEffectPenalty) return "add_effect";
 			if (penalty instanceof XpPercentPenalty) return "xp_percent";
+			if (penalty instanceof ItemDropPenalty) return "item_drop";
 			throw new IllegalStateException("Unknown Penalty subtype: " + penalty.getClass());
 		}
 	}
