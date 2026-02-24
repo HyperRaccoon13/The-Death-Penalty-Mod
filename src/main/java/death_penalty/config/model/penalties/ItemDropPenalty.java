@@ -13,7 +13,7 @@ import net.minecraft.world.GameRules;
 
 public class ItemDropPenalty implements Penalty {
 	public String type = "item_drop";
-	public int value;
+	public float valueF = 0.25f;
 
 	@Override
 	public void apply(ServerPlayerEntity playerEntity, DeathContext context) {
@@ -22,7 +22,7 @@ public class ItemDropPenalty implements Penalty {
 			for (int i = 0; i < playerEntity.getInventory().size(); i++) {
 				ItemStack itemStack = playerEntity.getInventory().getStack(i);
 				if (!itemStack.isEmpty() && EnchantmentHelper.hasVanishingCurse(itemStack) || itemStack.isIn(ConfigManager.ITEM_DROP_PENALTY_ITEMS)) {
-					playerEntity.getInventory().removeStack(i);
+					playerEntity.getInventory().removeStack(i, (int) Math.ceil((float) itemStack.getCount() * valueF));
 				}
 			}
 		}
