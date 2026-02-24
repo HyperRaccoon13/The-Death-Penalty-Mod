@@ -17,12 +17,13 @@ public class ItemDropPenalty implements Penalty {
 
 	@Override
 	public void apply(ServerPlayerEntity playerEntity, DeathContext context) {
+		float clamp = Math.max(0f, Math.min(1f, valueF));
 		TheDeathPenalty.LOGGER.info("item_drop apply");
 		if (playerEntity.world.getGameRules().getBoolean(GameRules.KEEP_INVENTORY)) {
 			for (int i = 0; i < playerEntity.getInventory().size(); i++) {
 				ItemStack itemStack = playerEntity.getInventory().getStack(i);
 				if (!itemStack.isEmpty() && EnchantmentHelper.hasVanishingCurse(itemStack) || itemStack.isIn(ConfigManager.ITEM_DROP_PENALTY_ITEMS)) {
-					playerEntity.getInventory().removeStack(i, (int) Math.ceil((float) itemStack.getCount() * valueF));
+					playerEntity.getInventory().removeStack(i, (int) Math.ceil((float) itemStack.getCount() * clamp));
 				}
 			}
 		}

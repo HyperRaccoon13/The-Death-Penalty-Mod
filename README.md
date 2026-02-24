@@ -111,13 +111,18 @@ Keeps a percentage of total XP.
 
 Fields: valueF (float between 0 and 1)
 
-## effect
+### effect
 
 Applies a status effect.
 
 Fields: effect (status effect ID), duration (ticks), amplifier
 (int), ambient (boolean), showParticles (boolean), showIcon (boolean)
 
+### item_drop
+
+Vanishes all Curse of Vanishing items, and removes a configurable percentage of an items count (rounded up) if that item is in the tag "#death_penalty:item_drop_penalty_items"
+
+Fields: valueF (float between 0 and 1)
 
 # Example Rule
 ```json
