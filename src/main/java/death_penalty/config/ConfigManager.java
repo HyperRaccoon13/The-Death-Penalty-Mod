@@ -5,6 +5,10 @@ import death_penalty.TheDeathPenalty;
 import death_penalty.config.model.DeathConfig;
 import death_penalty.config.model.Penalty;
 import death_penalty.config.model.penalties.*;
+import net.minecraft.item.Item;
+import net.minecraft.tag.TagKey;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -17,6 +21,12 @@ import java.nio.file.Path;
 public final class ConfigManager {
 	private static final Path PATH = Path.of("config", TheDeathPenalty.MOD_ID + ".json");
 	private static DeathConfig CURRENT;
+
+	public static final TagKey<Item> ITEM_DROP_PENALTY_ITEMS = register("item_drop_penalty_items");
+
+	private static TagKey<Item> register(String id) {
+		return TagKey.of(Registry.ITEM_KEY, new Identifier(TheDeathPenalty.MOD_ID, id));
+	}
 
 	private static final Gson GSON = new GsonBuilder()
 			.registerTypeAdapter(Penalty.class, new PenaltyAdapter())
