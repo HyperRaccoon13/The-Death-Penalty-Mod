@@ -1,0 +1,27 @@
+{
+  "replace": false,
+  "values": [
+    "#c:ores",
+    "#c:raw_copper_ores",
+    "#c:raw_iron_ores",
+    "#c:raw_gold_ores",
+    "#c:raw_copper_blocks",
+    "#c:raw_iron_blocks",
+    "#c:raw_gold_blocks",
+    "#c:coal",
+    "#c:lapis",
+    "minecraft:iron_nugget",
+    "minecraft:gold_nugget",
+    "#c:emeralds",
+    "#c:foods",
+    "minecraft:blaze_rod",
+    "minecraft:ender_pearl",
+    "minecraft:amethyst_shard",
+    "minecraft:nautilus_shell",
+    "minecraft:prismarine_shard",
+    "minecraft:prismarine_crystals",
+    "minecraft:enchanted_book",
+    "#c:quartz",
+    "#minecraft:arrows"
+  ]
+}
